@@ -2,6 +2,7 @@ import datetime
 import speech_recognition as sr
 import pyttsx3
 import socket
+import wikipedia
 
 name = "Jarvis"
 
@@ -68,39 +69,44 @@ def check_internet_connection():
 
 
 def filter_string(text):
-    n = name.lower()
-    if n in text:
-        text = text.replace(n," ")
-        text = text.strip()
-    if "open" in text:
-        text = text.replace("open", " ")
-        text = text.strip()
-        if "on google" in text:
-            text = text.replace("on google", " ")
-            text = text.strip()
-            return text
-        elif "in google" in text:
-            text = text.replace("in google", " ")
-            text = text.strip()
-        return text
-        
-    if "search" in text:
-        text = text.replace("search", " ")
-        text = text.strip()
-        if "for" in text:
-            text = text.replace("for"," ")
-            text = text.strip()
-        if "on google" in text:
-            text =  text.replace("on google", " ")
-            text = text.strip()
-            return text
-        elif "in google" in text:
-            text = text.replace("in google", " ")
-            text = text.strip()
-        return text
-    if "google search" in text:
-        text = text.replace("google search", " ")
-        text = text.strip()
-        return text
+    n = name.lower()                                   
+    text = text.replace(n, "")
+    text = text.replace("open", "")
+    text = text.replace("search", "")
+    text = text.replace("on google", "")
+    text = text.replace("in chrome","")
+    text = text.replace("in google", "")
+    text = text.replace("search for", "")
+    text = text.replace("google search", "")
+    text = text.replace("wikipedia","")
+    text = text.replace("tell me about", "")
+    text = text.replace("who is", "")
+    text = text.replace("what is","")
+    text = text.replace("search on wikipedia", "")
+    text = text.strip()
+
+    return text
 
 
+
+def time():
+    time = datetime.datetime.now()
+    time = time.strftime("%A  %I:%M %p" )
+    return time
+
+def date():
+    date = datetime.datetime.today()
+    date = date.strftime("%d %B,%Y")
+    return date
+
+def check_on_wikipedia(query):
+    if check_internet_connection() == True:
+        try:
+            message = wikipedia.summary(query, sentences = 2)
+        except:
+            message = "Sorry Wikipedia has no information about this."
+
+        return message
+    else:
+        message = "Not connected to internet please check your connection"
+        return message

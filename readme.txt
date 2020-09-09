@@ -10,9 +10,11 @@ Functions defined --------------------------------------------------------------
 
    4. check_internet_connection() function basically checkes the internet connection and
                                    returns True or False.
+
+   5. filter_string() function
+
+   6. check_on_wikipedia() function
                      
-
-
 
 
 
@@ -31,4 +33,6 @@ Pakages to install -------------------------------------------------------------
  
    1. pip install pyttsx3
    2. pip install speechRecognition
+   3. pip install pyaudio
+   4. pip install wikipedia
  
